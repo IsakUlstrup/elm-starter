@@ -106,6 +106,11 @@ HTMLTEMPLATE="<!DOCTYPE html>
 </html>
 "
 
+GITIGNORETEMPLATE=".cache
+dist
+elm-stuff
+node_modules"
+
 
 # create project folder
 mkdir $1
@@ -115,12 +120,14 @@ cd $1
 yarn add parcel-bundler elm
 yarn run elm init
 
-# create template code
+# create template FILES
 echo "$ELMTEMPLATE" > src/Main.elm
 
 echo "$JSTEMPLATE" > src/index.js
 
 echo "$HTMLTEMPLATE" > src/index.html
+
+echo "$GITIGNORETEMPLATE" > .gitignore
 
 # init elm review
 elm-review init --template jfmengels/elm-review-config/application
