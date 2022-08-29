@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ELMTEMPLATE="module Main exposing (..)
+ELMTEMPLATE="module Main exposing (Model, Msg, main)
 
 import Browser exposing (Document)
 import Html exposing (button, h3, p, text)
