@@ -2,8 +2,8 @@
 
 ELMTEMPLATE="module Main exposing (Model, Msg, main)
 
-import Browser exposing (Document)
-import Html exposing (button, h3, p, text)
+import Browser
+import Html exposing (Html, button, h3, main_, p, text)
 import Html.Events exposing (onClick)
 
 
@@ -47,17 +47,15 @@ update msg model =
 -- VIEW
 
 
-view : Model -> Document Msg
+view : Model -> Html Msg
 view model =
-    { title = \"Elm App\"
-    , body =
+    main_ []
         [ h3 [] [ text \"Elm counter\" ]
         , p [] [ text <| String.fromInt model ]
         , button [ onClick Increment ] [ text \"+\" ]
         , button [ onClick Decrement ] [ text \"-\" ]
         , button [ onClick Reset ] [ text \"Reset\" ]
         ]
-    }
 
 
 
@@ -75,7 +73,7 @@ subscriptions _ =
 
 main : Program () Model Msg
 main =
-    Browser.document
+    Browser.element
         { init = init
         , view = view
         , update = update
@@ -84,7 +82,7 @@ main =
 "
 
 
-JSTEMPLATE="import { Elm } from './Main.elm';
+JSTEMPLATE="import { Elm } from '../Main.elm';
 
 Elm.Main.init({
   node: document.querySelector('main')
@@ -111,7 +109,6 @@ dist
 elm-stuff
 node_modules"
 
-
 # create project folder
 mkdir $1
 cd $1
@@ -120,25 +117,25 @@ cd $1
 yarn add parcel-bundler elm
 yarn run elm init
 
+mkdir src/public
+
 # create template FILES
 echo "$ELMTEMPLATE" > src/Main.elm
 
-echo "$JSTEMPLATE" > src/index.js
+echo "$JSTEMPLATE" > src/public/index.js
 
-echo "$HTMLTEMPLATE" > src/index.html
+echo "$HTMLTEMPLATE" > src/public/index.html
 
 echo "$GITIGNORETEMPLATE" > .gitignore
-
-# init elm review
-elm-review init --template jfmengels/elm-review-config/application
-
 
 # init elm-test
 elm-test init
 
+# init elm review
+# elm-review init --template jfmengels/elm-review-config/application
 
 # start vscode
 code .
 
 # start live server
-yarn run parcel src/index.html --open firefox http://localhost:1234/
+yarn run parcel src/public/index.html --open firefox http://localhost:1234/
