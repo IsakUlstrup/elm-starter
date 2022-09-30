@@ -132,7 +132,7 @@ echo "$GITIGNORETEMPLATE" > .gitignore
 elm-test init
 
 # init elm review
-# elm-review init --template jfmengels/elm-review-config/application
+elm-review init --template jfmengels/elm-review-config/application
 
 # start vscode
 code .
