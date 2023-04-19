@@ -130,13 +130,13 @@ node_modules"
 mkdir $1
 cd $1
 
+# install npm dependencies
 npm i -D vite
 npm i -D vite-plugin-elm@next
 npm i -D sass
 
-elm init
 
-# create template FILES
+# write template files
 echo "$ELMTEMPLATE" > src/Main.elm
 
 echo "$JSTEMPLATE" > index.js
@@ -148,6 +148,9 @@ echo "$VITECONFIGTEMPLATE" > vite.config.js
 echo "$SASSTEMPLATE" > style.sass
 
 echo "$GITIGNORETEMPLATE" > .gitignore
+
+# init elm
+elm init
 
 # init elm-test
 elm-test init
