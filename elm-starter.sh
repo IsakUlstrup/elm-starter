@@ -82,26 +82,43 @@ main =
 "
 
 
-JSTEMPLATE="import { Elm } from '../Main.elm';
-
-Elm.Main.init({
-  node: document.querySelector('main')
-});
+JSTEMPLATE="import { Elm } from \"./src/Main.elm\";
+Elm.Main.init({ node: document.getElementById(\"app\") });
 "
 
 
 HTMLTEMPLATE="<!DOCTYPE html>
 <html lang=\"en\">
-  <head>
+
+<head>
     <meta charset=\"UTF-8\">
+    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">
     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
-    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">
-    <script defer src=\"./index.js\"></script>
-  </head>
-  <body>
-    <main></main>
-  </body>
-</html>
+    <title>Elm App</title>
+    <link rel=\"stylesheet\" href=\"style.sass\">
+    <script type=\"module\" src=\"index.js\"></script>
+</head>
+<body>
+    <main id=\"app\"></main>
+</body>
+</html>"
+
+VITECONFIGTEMPLATE="import { defineConfig } from 'vite'
+import elmPlugin from 'vite-plugin-elm'
+
+export default defineConfig({
+    plugins: [elmPlugin()]
+})"
+
+SASSTEMPLATE="*
+    padding: 0
+    margin: 0
+    box-sizing: border-box
+
+body
+    background: #262626
+    color: beige
+    font-family: Arial, Helvetica, sans-serif
 "
 
 GITIGNORETEMPLATE=".cache
@@ -113,18 +130,22 @@ node_modules"
 mkdir $1
 cd $1
 
-# set up parcel and init elm
-yarn add parcel-bundler elm
-yarn run elm init
+npm i -D vite
+npm i -D vite-plugin-elm@next
+npm i -D sass
 
-mkdir src/public
+elm init
 
 # create template FILES
 echo "$ELMTEMPLATE" > src/Main.elm
 
-echo "$JSTEMPLATE" > src/public/index.js
+echo "$JSTEMPLATE" > index.js
 
-echo "$HTMLTEMPLATE" > src/public/index.html
+echo "$HTMLTEMPLATE" > index.html
+
+echo "$VITECONFIGTEMPLATE" > vite.config.js
+
+echo "$SASSTEMPLATE" > style.sass
 
 echo "$GITIGNORETEMPLATE" > .gitignore
 
@@ -138,4 +159,4 @@ elm-review init --template jfmengels/elm-review-config/application
 code .
 
 # start live server
-yarn run parcel src/public/index.html --open firefox http://localhost:1234/
+vite --host --open http://localhost:5173/
