@@ -136,6 +136,16 @@ npm i -D vite-plugin-elm@next
 npm i -D sass
 
 
+# init elm
+elm init
+
+# init elm-test
+elm-test init
+
+# init elm review
+elm-review init --template jfmengels/elm-review-config/application
+
+
 # write template files
 echo "$ELMTEMPLATE" > src/Main.elm
 
@@ -148,15 +158,6 @@ echo "$VITECONFIGTEMPLATE" > vite.config.js
 echo "$SASSTEMPLATE" > style.sass
 
 echo "$GITIGNORETEMPLATE" > .gitignore
-
-# init elm
-elm init
-
-# init elm-test
-elm-test init
-
-# init elm review
-elm-review init --template jfmengels/elm-review-config/application
 
 # start vscode
 code .
