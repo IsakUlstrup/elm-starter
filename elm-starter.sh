@@ -95,6 +95,7 @@ HTMLTEMPLATE="<!DOCTYPE html>
     <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">
     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
     <title>Elm App</title>
+    <link rel=\"manifest\" href=\"app.webmanifest\">
     <link rel=\"stylesheet\" href=\"style.sass\">
     <script type=\"module\" src=\"index.js\"></script>
 </head>
@@ -125,6 +126,17 @@ GITIGNORETEMPLATE=".cache
 dist
 elm-stuff
 node_modules"
+
+APPMANIFESTTEMPLATE="{
+    \"theme_color\": \"#262626\",
+    \"background_color\": \"#262626\",
+    \"display\": \"fullscreen\",
+    \"scope\": \"/\",
+    \"start_url\": \"/\",
+    \"name\": \"Elm App\",
+    \"short_name\": \"ElmApp\",
+    \"description\": \"Elm app description\"
+}"
 
 # create project folder
 mkdir $1
@@ -159,6 +171,7 @@ echo "$SASSTEMPLATE" > style.sass
 
 echo "$GITIGNORETEMPLATE" > .gitignore
 
+echo "$APPMANIFESTTEMPLATE" > app.webmanifest
 # start vscode
 code .
 
