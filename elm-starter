@@ -144,9 +144,8 @@ cd $1
 
 # install npm dependencies
 npm i -D vite
-npm i -D vite-plugin-elm@next
+npm i -D vite-plugin-elm
 npm i -D sass
-
 
 # init elm
 elm init
@@ -157,7 +156,6 @@ elm-test init
 # init elm review
 elm-review init --template jfmengels/elm-review-config/application
 
-
 # write template files
 echo "$ELMTEMPLATE" > src/Main.elm
 
@@ -165,13 +163,14 @@ echo "$JSTEMPLATE" > index.js
 
 echo "$HTMLTEMPLATE" > index.html
 
-echo "$VITECONFIGTEMPLATE" > vite.config.js
+echo "$VITECONFIGTEMPLATE" > vite.config.mjs
 
 echo "$SASSTEMPLATE" > style.sass
 
 echo "$GITIGNORETEMPLATE" > .gitignore
 
 echo "$APPMANIFESTTEMPLATE" > app.webmanifest
+
 # start vscode
 code .
 
